@@ -1,9 +1,11 @@
-# Change Log
+# Changelog
 
-All notable changes to the "external-terminal-button" extension will be documented in this file.
+All notable changes to the "External Terminal Button" extension will be documented in this file.
 
-Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
+## [1.0.0] - 2026-03-16
 
-## [Unreleased]
+### Added
 
-- Initial release
+- Status bar button to open an external terminal
+- Configurable button text, alignment, and priority via settings
+- Live config update without reload
