@@ -2,7 +2,7 @@
   "name": "external-terminal-button",
   "displayName": "External Terminal Button",
   "description": "Adds a status bar button to quickly open an external terminal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "publisher": "kratschinski",
   "license": "MIT",
   "icon": "images/icon.png",
