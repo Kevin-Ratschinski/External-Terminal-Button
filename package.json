@@ -1,23 +1,57 @@
 {
   "name": "external-terminal-button",
   "displayName": "External Terminal Button",
-  "description": "",
+  "description": "Adds a status bar button to quickly open an external terminal",
   "version": "0.0.1",
+  "publisher": "kratschinski",
+  "license": "MIT",
+  "icon": "images/icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Kevin-Ratschinski/External-Terminal-Button"
+  },
   "engines": {
     "vscode": "^1.110.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "external-terminal-button.helloWorld",
-        "title": "Hello World"
+        "command": "externalTerminalButton.openExternalTerminal",
+        "title": "Open External Terminal",
+        "category": "Terminal"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "External Terminal Button",
+      "properties": {
+        "externalTerminalButton.alignment": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "left",
+          "description": "Status bar button alignment"
+        },
+        "externalTerminalButton.priority": {
+          "type": "number",
+          "default": 0,
+          "description": "Status bar button priority (higher = further left)"
+        },
+        "externalTerminalButton.text": {
+          "type": "string",
+          "default": "$(terminal) Ext Terminal",
+          "description": "Status bar button text (supports codicons)"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
