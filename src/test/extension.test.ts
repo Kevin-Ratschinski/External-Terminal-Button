@@ -1,15 +1,28 @@
-import * as assert from 'assert';
+import * as assert from "assert";
+import * as vscode from "vscode";
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
-import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+suite("Extension Test Suite", () => {
+  test("Extension should be present", () => {
+    const ext = vscode.extensions.getExtension("kratschinski.external-terminal-button");
+    assert.ok(ext, "Extension should be registered");
+  });
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+  test("Command should be registered", async () => {
+    const commands = await vscode.commands.getCommands(true);
+    assert.ok(commands.includes("externalTerminalButton.openExternalTerminal"), "Command externalTerminalButton.openExternalTerminal should be registered");
+  });
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
+  test("Extension should activate", async () => {
+    const ext = vscode.extensions.getExtension("kratschinski.external-terminal-button");
+    assert.ok(ext, "Extension should be registered");
+    await ext!.activate();
+    assert.strictEqual(ext!.isActive, true, "Extension should be active after activation");
+  });
+
+  test("Default configuration values should be set", () => {
+    const config = vscode.workspace.getConfiguration("externalTerminalButton");
+    assert.strictEqual(config.get("alignment"), "left");
+    assert.strictEqual(config.get("priority"), 0);
+    assert.strictEqual(config.get("text"), "$(terminal) Ext Terminal");
+  });
 });
