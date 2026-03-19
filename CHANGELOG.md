@@ -2,6 +2,12 @@
 
 All notable changes to the "External Terminal Button" extension will be documented in this file.
 
+## [Unreleased]
+
+### Added
+
+- New setting `openInFileDirectory` to open the terminal in the directory of the currently active file
+
 ## [1.0.0] - 2026-03-16
 
 ### Added
