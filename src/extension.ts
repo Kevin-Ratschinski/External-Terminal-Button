@@ -83,3 +83,5 @@ export function activate(context: vscode.ExtensionContext): void {
 
   context.subscriptions.push(openTerminalCommand, terminalItem, configListener);
 }
+
+export function deactivate(): void {}
