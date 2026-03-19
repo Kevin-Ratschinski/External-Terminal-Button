@@ -49,6 +49,11 @@
           "type": "string",
           "default": "$(terminal) Ext Terminal",
           "description": "Status bar button text (supports codicons)"
+        },
+        "externalTerminalButton.openInFileDirectory": {
+          "type": "boolean",
+          "default": false,
+          "description": "Open the terminal in the directory of the currently active file instead of the workspace root"
         }
       }
     }

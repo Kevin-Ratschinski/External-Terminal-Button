@@ -24,5 +24,6 @@ suite("Extension Test Suite", () => {
     assert.strictEqual(config.get("alignment"), "left");
     assert.strictEqual(config.get("priority"), 0);
     assert.strictEqual(config.get("text"), "$(terminal) Ext Terminal");
+    assert.strictEqual(config.get("openInFileDirectory"), false);
   });
 });
