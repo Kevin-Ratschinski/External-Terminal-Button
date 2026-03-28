@@ -21,32 +21,67 @@ function getTargetDirectory(): string | undefined {
   return undefined;
 }
 
-function openTerminalAtDirectory(dir: string): void {
+function getTerminalApp(): string {
+  const config = getConfig();
+  const customTerminal = config.get<string>("terminalApp", "");
+
+  if (customTerminal) {
+    return customTerminal;
+  }
+
   const platform = process.platform;
+  const externalConfig = vscode.workspace.getConfiguration("terminal.external");
 
   if (platform === "darwin") {
-    const terminalApp = vscode.workspace.getConfiguration("terminal.external").get<string>("osxExec", "Terminal.app");
+    return externalConfig.get<string>("osxExec", "Terminal.app");
+  } else if (platform === "win32") {
+    return externalConfig.get<string>("windowsExec", "C:\\Windows\\System32\\cmd.exe");
+  } else {
+    return externalConfig.get<string>("linuxExec", "xterm");
+  }
+}
+
+function openTerminalAtDirectory(dir: string): void {
+  const platform = process.platform;
+  const terminalApp = getTerminalApp();
+
+  if (platform === "darwin") {
     const child = spawn("open", ["-a", terminalApp, dir], { detached: true, stdio: "ignore" });
     child.unref();
-  } else if (platform === "win32") {
-    const terminalExe = vscode.workspace.getConfiguration("terminal.external").get<string>("windowsExec", "C:\\Windows\\System32\\cmd.exe");
-    const child = spawn(terminalExe, [], { cwd: dir, detached: true, stdio: "ignore" });
-    child.unref();
   } else {
-    const terminalExe = vscode.workspace.getConfiguration("terminal.external").get<string>("linuxExec", "xterm");
-    const child = spawn(terminalExe, [], { cwd: dir, detached: true, stdio: "ignore" });
+    const child = spawn(terminalApp, [], { cwd: dir, detached: true, stdio: "ignore" });
     child.unref();
   }
 }
 
 export async function openExternalTerminal(): Promise<void> {
+  const config = getConfig();
+  const customTerminal = config.get<string>("terminalApp", "");
   const targetDir = getTargetDirectory();
 
-  if (targetDir) {
+  // Use custom terminal logic if a custom terminal is configured
+  if (customTerminal) {
+    const dir = targetDir ?? getWorkspaceRoot();
+    if (dir) {
+      openTerminalAtDirectory(dir);
+    } else {
+      vscode.window.showWarningMessage("No workspace folder open");
+    }
+  } else if (targetDir) {
+    // Use custom directory with VS Code's default terminal settings
     openTerminalAtDirectory(targetDir);
   } else {
+    // Fallback to VS Code's native command
     await vscode.commands.executeCommand(OPEN_NATIVE_CONSOLE_COMMAND);
   }
+}
+
+function getWorkspaceRoot(): string | undefined {
+  const workspaceFolders = vscode.workspace.workspaceFolders;
+  if (workspaceFolders && workspaceFolders.length > 0) {
+    return workspaceFolders[0].uri.fsPath;
+  }
+  return undefined;
 }
 
 function getConfig(): vscode.WorkspaceConfiguration {

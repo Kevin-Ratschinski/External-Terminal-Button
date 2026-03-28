@@ -54,6 +54,11 @@
           "type": "boolean",
           "default": false,
           "description": "Open the terminal in the directory of the currently active file instead of the workspace root"
+        },
+        "externalTerminalButton.terminalApp": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Custom terminal application to open. Leave empty to use VS Code's default external terminal settings.\n\n**Examples:**\n- macOS: `iTerm`, `Warp`, `Terminal`\n- Windows: `C:\\Program Files\\Git\\git-bash.exe`, `wt.exe` (Windows Terminal)\n- Linux: `gnome-terminal`, `konsole`, `alacritty`"
         }
       }
     }
