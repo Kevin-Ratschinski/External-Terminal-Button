@@ -4,6 +4,12 @@ All notable changes to the "External Terminal Button" extension will be document
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-03-28
+
+### Added
+
+- New setting `terminalApp` to specify a custom terminal application (e.g., Ghostty, iTerm, Warp, Windows Terminal)
+
 ## [1.1.0] - 2026-03-23
 
 ### Added
