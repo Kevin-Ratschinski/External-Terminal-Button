@@ -18,6 +18,7 @@ This extension contributes the following settings:
 | `externalTerminalButton.priority`            | `0`                          | Status bar button priority (higher = further left)                                               |
 | `externalTerminalButton.text`                | `"$(terminal) Ext Terminal"` | Button text (supports [codicons](https://microsoft.github.io/vscode-codicons/dist/codicon.html)) |
 | `externalTerminalButton.openInFileDirectory` | `false`                      | Open the terminal in the directory of the currently active file instead of the workspace root    |
+| `externalTerminalButton.terminalApp`         | `""`                         | Custom terminal application (e.g., `Ghostty`, `iTerm`, `Warp`, `wt.exe`)                         |
 
 ## Usage
 
